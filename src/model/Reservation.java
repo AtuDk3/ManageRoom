@@ -9,6 +9,7 @@ package model;
  * @author Lenovo
  */
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Reservation {
     private String bookingID;
@@ -86,11 +87,21 @@ public class Reservation {
     }
 
     public void printReservation() {
-        System.out.printf("ID: %s - Name: %s - Phone: %s - Room: %s - BookingDate: %s\n",
-            bookingID, customerName, phoneNumber, roomNumber, bookingDate.toString());
-        if (flightInformation != null) {
-            flightInformation.printFlightInformation();
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    String formattedBookingDate = bookingDate.format(formatter);
+    
+    System.out.print("ID: " + bookingID + " - Name: " + customerName + " - Phone: " + phoneNumber 
+        + " - Room: " + roomNumber + " - BookingDate: " + formattedBookingDate);
+    
+    if (flightInformation != null) {
+        String formattedTimePickUp = flightInformation.getTimePickUp().format(formatter);
+        System.out.println(" - Flight: " + flightInformation.getFlightNumber() 
+            + " - Seat: " + flightInformation.getSeatNumber() 
+            + " - TimePickUp: " + formattedTimePickUp);
+    } else {
+        System.out.println();
     }
+}
+
 }
 

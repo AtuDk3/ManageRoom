@@ -9,6 +9,7 @@ package model;
  * @author Lenovo
  */
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FlightInformation {
     private String flightNumber;
@@ -52,7 +53,11 @@ public class FlightInformation {
     }
 
     public void printFlightInformation() {
-        System.out.printf("Flight: %s - Seat: %s - TimePickUp: %s\n", flightNumber, seatNumber, timePickUp.toString());
-    }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    String formattedTimePickUp = timePickUp.format(formatter);
+
+    System.out.printf("Flight: %s - Seat: %s - TimePickUp: %s\n", flightNumber, seatNumber, formattedTimePickUp);
+}
+
 }
 
